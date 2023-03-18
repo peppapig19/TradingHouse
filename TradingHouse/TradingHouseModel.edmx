@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TradingHouseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_worker" Type="int" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="day_sales_volume" Type="money" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_dept" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="unit" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="price" Type="money" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Selling">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_product" Type="int" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="amount" Type="float" Nullable="false" />
+          <Property Name="cost" Type="money" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_dept" Type="int" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="image" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TradingHouse.dbo.AccountView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AccountView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_worker" />
+            <PropertyRef Name="login" />
+            <PropertyRef Name="password" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_worker" Type="int" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="name_worker" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TradingHouse.dbo.DepartmentView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DepartmentView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="day_sales_volume" Type="money" />
+          <Property Name="id_manager" Type="int" />
+          <Property Name="name_manager" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TradingHouse.dbo.ProductView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_dept" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="unit" />
+            <PropertyRef Name="price" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_dept" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="unit" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="price" Type="money" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="name_dept" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TradingHouse.dbo.SellingView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SellingView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_product" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="amount" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_product" Type="int" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="amount" Type="float" Nullable="false" />
+          <Property Name="cost" Type="money" />
+          <Property Name="name_product" Type="nvarchar" MaxLength="50" />
+          <Property Name="id_dept" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TradingHouse.dbo.WorkerView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="WorkerView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="type" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_dept" Type="int" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="image" Type="nvarchar(max)" />
+          <Property Name="name_dept" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Account_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="id_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="id_dept" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Selling_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Selling" Type="Self.Selling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Selling">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="id_dept" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="getCost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="money">
+          <Parameter Name="id_product" Type="int" Mode="In" />
+          <Parameter Name="amount" Type="float" Mode="In" />
+        </Function>
+        <EntityContainer Name="TradingHouseModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Selling" EntityType="Self.Selling" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountView" EntityType="Self.AccountView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AccountView].[id] AS [id], 
+    [AccountView].[id_worker] AS [id_worker], 
+    [AccountView].[login] AS [login], 
+    [AccountView].[password] AS [password], 
+    [AccountView].[name_worker] AS [name_worker]
+    FROM [dbo].[AccountView] AS [AccountView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DepartmentView" EntityType="Self.DepartmentView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DepartmentView].[id] AS [id], 
+    [DepartmentView].[name] AS [name], 
+    [DepartmentView].[phone] AS [phone], 
+    [DepartmentView].[day_sales_volume] AS [day_sales_volume], 
+    [DepartmentView].[id_manager] AS [id_manager], 
+    [DepartmentView].[name_manager] AS [name_manager]
+    FROM [dbo].[DepartmentView] AS [DepartmentView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProductView" EntityType="Self.ProductView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductView].[id] AS [id], 
+    [ProductView].[id_dept] AS [id_dept], 
+    [ProductView].[name] AS [name], 
+    [ProductView].[unit] AS [unit], 
+    [ProductView].[price] AS [price], 
+    [ProductView].[description] AS [description], 
+    [ProductView].[name_dept] AS [name_dept]
+    FROM [dbo].[ProductView] AS [ProductView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SellingView" EntityType="Self.SellingView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SellingView].[id] AS [id], 
+    [SellingView].[id_product] AS [id_product], 
+    [SellingView].[date] AS [date], 
+    [SellingView].[amount] AS [amount], 
+    [SellingView].[cost] AS [cost], 
+    [SellingView].[name_product] AS [name_product], 
+    [SellingView].[id_dept] AS [id_dept]
+    FROM [dbo].[SellingView] AS [SellingView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="WorkerView" EntityType="Self.WorkerView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WorkerView].[id] AS [id], 
+    [WorkerView].[id_dept] AS [id_dept], 
+    [WorkerView].[type] AS [type], 
+    [WorkerView].[name] AS [name], 
+    [WorkerView].[phone] AS [phone], 
+    [WorkerView].[image] AS [image], 
+    [WorkerView].[name_dept] AS [name_dept]
+    FROM [dbo].[WorkerView] AS [WorkerView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Account_Worker" Association="Self.FK_Account_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Department" Association="Self.FK_Product_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Selling_Product" Association="Self.FK_Selling_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Selling" EntitySet="Selling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Department" Association="Self.FK_Worker_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TradingHouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_worker" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Account_Worker" FromRole="Account" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="day_sales_volume" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Department" FromRole="Department" ToRole="Product" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Worker_Department" FromRole="Department" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_dept" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="unit" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Product_Department" FromRole="Product" ToRole="Department" />
+          <NavigationProperty Name="Selling" Relationship="Self.FK_Selling_Product" FromRole="Product" ToRole="Selling" />
+        </EntityType>
+        <EntityType Name="Selling">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_product" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="amount" Type="Double" Nullable="false" />
+          <Property Name="cost" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Selling_Product" FromRole="Selling" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_dept" Type="Int32" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Account_Worker" FromRole="Worker" ToRole="Account" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Worker_Department" FromRole="Worker" ToRole="Department" />
+        </EntityType>
+        <EntityType Name="AccountView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_worker" />
+            <PropertyRef Name="login" />
+            <PropertyRef Name="password" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_worker" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name_worker" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DepartmentView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="day_sales_volume" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="id_manager" Type="Int32" />
+          <Property Name="name_manager" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_dept" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="unit" />
+            <PropertyRef Name="price" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_dept" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="unit" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="name_dept" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SellingView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_product" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="amount" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_product" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="amount" Type="Double" Nullable="false" />
+          <Property Name="cost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="name_product" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id_dept" Type="Int32" />
+        </EntityType>
+        <EntityType Name="WorkerView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="type" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_dept" Type="Int32" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="name_dept" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Account_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="id_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="id_dept" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="id_dept" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Selling_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Selling" Type="Self.Selling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Selling">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TradingHouseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account" EntityType="Self.Account" />
+          <EntitySet Name="Department" EntityType="Self.Department" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Selling" EntityType="Self.Selling" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" />
+          <EntitySet Name="AccountView" EntityType="Self.AccountView" />
+          <EntitySet Name="DepartmentView" EntityType="Self.DepartmentView" />
+          <EntitySet Name="ProductView" EntityType="Self.ProductView" />
+          <EntitySet Name="SellingView" EntityType="Self.SellingView" />
+          <EntitySet Name="WorkerView" EntityType="Self.WorkerView" />
+          <AssociationSet Name="FK_Account_Worker" Association="Self.FK_Account_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Department" Association="Self.FK_Product_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Department" Association="Self.FK_Worker_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Selling_Product" Association="Self.FK_Selling_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Selling" EntitySet="Selling" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TradingHouseModelStoreContainer" CdmEntityContainer="TradingHouseEntities">
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="TradingHouseModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_worker" ColumnName="id_worker" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="TradingHouseModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="day_sales_volume" ColumnName="day_sales_volume" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="TradingHouseModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_dept" ColumnName="id_dept" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Selling">
+            <EntityTypeMapping TypeName="TradingHouseModel.Selling">
+              <MappingFragment StoreEntitySet="Selling">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Worker">
+            <EntityTypeMapping TypeName="TradingHouseModel.Worker">
+              <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_dept" ColumnName="id_dept" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountView">
+            <EntityTypeMapping TypeName="TradingHouseModel.AccountView">
+              <MappingFragment StoreEntitySet="AccountView">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_worker" ColumnName="id_worker" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="name_worker" ColumnName="name_worker" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepartmentView">
+            <EntityTypeMapping TypeName="TradingHouseModel.DepartmentView">
+              <MappingFragment StoreEntitySet="DepartmentView">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="day_sales_volume" ColumnName="day_sales_volume" />
+                <ScalarProperty Name="id_manager" ColumnName="id_manager" />
+                <ScalarProperty Name="name_manager" ColumnName="name_manager" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductView">
+            <EntityTypeMapping TypeName="TradingHouseModel.ProductView">
+              <MappingFragment StoreEntitySet="ProductView">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_dept" ColumnName="id_dept" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name_dept" ColumnName="name_dept" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellingView">
+            <EntityTypeMapping TypeName="TradingHouseModel.SellingView">
+              <MappingFragment StoreEntitySet="SellingView">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="name_product" ColumnName="name_product" />
+                <ScalarProperty Name="id_dept" ColumnName="id_dept" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkerView">
+            <EntityTypeMapping TypeName="TradingHouseModel.WorkerView">
+              <MappingFragment StoreEntitySet="WorkerView">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_dept" ColumnName="id_dept" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="name_dept" ColumnName="name_dept" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

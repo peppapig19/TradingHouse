@@ -1,0 +1,37 @@
+﻿<Window x:Class="TradingHouse.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="300" Width="300">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Логин:" />
+        <Label Grid.Row="1" Grid.Column="0" Content="Пароль:" />
+
+        <TextBox Name="login_textBox" Grid.Row="0" Grid.Column="1" Width="150" />
+        <PasswordBox Name="passwordBox" Grid.Row="1" Grid.Column="1" Width="150" />
+        <TextBox Name="password_textBox" Grid.Row="1" Grid.Column="1" Width="150" Visibility="Hidden" />
+        <Image Name="password_image" Grid.Row="1" Grid.Column="2" Source="pack://application:,,,/Resources/view.png" Height="{Binding ElementName=passwordBox, Path=ActualHeight}" MouseDown="password_image_MouseDown" />
+
+        <Image Name="captcha_image" Grid.Row="2" Grid.Column="1" Margin="0 3 0 0" Stretch="None" MouseDown="captcha_image_MouseDown" />
+        <TextBox Name="captcha_textBox" Grid.Row="3" Grid.Column="1" Width="150" HorizontalAlignment="Center" Visibility="Collapsed" />
+
+        <Button Name="login_button" Grid.Row="4" Grid.Column="1" Margin="0 3" HorizontalAlignment="Center" Content="Войти" Click="login_button_Click" />
+    </Grid>
+</Window>

@@ -1,0 +1,61 @@
+﻿<Page x:Class="TradingHouse.Pages.Accounts"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Учётные записи" Background="White" Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Content="Записи: " />
+            <Label Name="count_label" />
+
+            <Button Name="previous_button" Margin="3 0" Width="30" Click="previous_button_Click">
+                <Image Source="pack://application:,,,/Resources/previous.png" />
+            </Button>
+            <Button Name="next_button" Margin="3 0" Width="30" Click="next_button_Click">
+                <Image Source="pack://application:,,,/Resources/next.png" />
+            </Button>
+        </StackPanel>
+
+        <DataGrid Name="dataGridView" Grid.Row="1" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding id}" />
+                <DataGridTextColumn Header="№ работника" Binding="{Binding id_worker}" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding name_worker}" />
+                <DataGridTextColumn Header="Логин" Binding="{Binding login}" />
+                <DataGridTextColumn Header="Пароль" Binding="{Binding password}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Label Content="Поиск:" />
+                <ComboBox Margin="2 0">
+                    <CheckBox Name="name_checkBox" IsChecked="True" Content="имя" Click="CheckBox_Click" />
+                    <CheckBox Name="login_checkBox" IsChecked="True" Content="логин" Click="CheckBox_Click" />
+                </ComboBox>
+                <TextBox Name="query_textBox" Margin="2 0" Width="200" TextChanged="query_textBox_TextChanged" />
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Name="create_button" Margin="2 0" Content="Добавить" Click="create_button_Click" />
+                <Button Name="update_button" Margin="2 0" Content="Изменить" Click="update_button_Click" />
+                <Button Name="delete_button" Margin="2 0" Content="Удалить" Click="delete_button_Click" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

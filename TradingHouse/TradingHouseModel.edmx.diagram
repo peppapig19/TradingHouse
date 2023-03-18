@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c8b5ea9da3864b668a16c105960275c1" Name="Diagram1">
+        <EntityTypeShape EntityType="TradingHouseModel.Account" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingHouseModel.Department" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingHouseModel.Product" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingHouseModel.Selling" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingHouseModel.Worker" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingHouseModel.AccountView" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingHouseModel.DepartmentView" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingHouseModel.ProductView" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingHouseModel.SellingView" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingHouseModel.WorkerView" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="TradingHouseModel.FK_Account_Worker" ManuallyRouted="false" />
+        <AssociationConnector Association="TradingHouseModel.FK_Product_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="TradingHouseModel.FK_Worker_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="TradingHouseModel.FK_Selling_Product" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

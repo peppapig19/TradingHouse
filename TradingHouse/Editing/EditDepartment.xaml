@@ -1,0 +1,37 @@
+﻿<Window x:Class="TradingHouse.Editing.EditDepartment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="Данные отдела" Height="200" Width="400" Loaded="Window_Loaded">
+
+    <DockPanel LastChildFill="False" Margin="3">
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Label Name="id_label_1" Grid.Row="0" Content="Номер:" />
+            <Label Grid.Row="1" Content="Название*:" />
+            <Label Grid.Row="2" Content="Телефон:" />
+            <Label Grid.Row="3" Content="Объём реализации в день:" />
+
+            <Label Name="id_label_2" Grid.Row="0" Grid.Column="1" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Department.name}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Department.phone}" />
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Department.day_sales_volume, StringFormat=N2}" />
+        </Grid>
+
+        <Button Name="save_button" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Content="Сохранить" Click="save_button_Click" />
+    </DockPanel>
+</Window>
